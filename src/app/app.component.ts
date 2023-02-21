@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jedi_order';
+
+  constructor(private auth: AuthService) {
+
+  }
+
+  test(): void {
+    this.auth.registration('viacheslavpopenko@gmail.com', '56222').subscribe();
+  }
 }
