@@ -1,9 +1,9 @@
 <div class="container">
-  <h1>Вітаю! Це сервіс, де трохи можна повчити JS</h1>
+  <h1 class="h6">Вітаю! Це сервіс, де трохи можна повчити JS</h1>
   <form [formGroup]="authForm" action="" method="post" (submit)="onSubmit()">
     <input type="text" name="email" placeholder="Електронна адреса" formControlName="email">
     <input type="password" name="password" placeholder="Пароль" formControlName="password">
-    <button type="submit" name="login">Вхід</button>
+    <button  type="submit" name="login" cz-button color="green">Вхід</button>
     <!-- <button type="submit" name="newUser">Створити користувача</button> -->
   </form>
 </div>

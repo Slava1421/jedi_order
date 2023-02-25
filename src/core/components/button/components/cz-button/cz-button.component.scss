@@ -1,0 +1,50 @@
+@import "../../../../../colors.scss";
+@import "../../../../../fonts.scss";
+
+:host.cz-button {
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  @extend %s2;
+
+  &[color="red"] {
+    background-color: $red-1;
+
+    &:hover {
+      background-color: $red-2;
+    }
+  }
+
+  &[color="purle"], &.unthemed {
+    background-color: $purle-1;
+
+    &:hover {
+      background-color: $purle-2;
+    }
+  }
+
+  &[color="green"] {
+    background-color: $green-1;
+
+    &:hover {
+      background-color: $green-2;
+    }
+  }
+
+  &[disabled] {
+    background-color: $grey-3 !important;
+    color: $grey-1 !important;
+    cursor: default !important;
+
+    &:hover {
+      background-color: none !important;
+
+    }
+  }
+}

@@ -1,13 +1,59 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>JediOrder</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .splash-screen {
+      background-color: #574793;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .active {
+      animation: rotate 1s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0);
+        -webkit-transform: rotate(0);
+      }
+
+      25% {
+        transform: rotate(5deg);
+        -webkit-transform: rotate(5deg);
+      }
+
+      75% {
+        transform: rotate(-5deg);
+        -webkit-transform: rotate(-5deg);
+      }
+
+      100% {
+        transform: rotate(0);
+        -webkit-transform: rotate(0);
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div id="splash-screen" class="splash-screen">
+    <img class="active" src="assets/icons/tikigiki-open-book-home-001.svg" alt="" height="100" width="100">
+  </div>
   <app-root></app-root>
 </body>
+
 </html>

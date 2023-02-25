@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ButtonColor } from 'src/core/components/button/models/cz-button.model';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent {
+  color: ButtonColor = 'green';
+
   authForm: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
