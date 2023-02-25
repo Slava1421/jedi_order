@@ -1,0 +1,81 @@
+%h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 98px;
+  line-height: 96px;
+  letter-spacing: -1.5px;
+}
+
+%h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 60px;
+  line-height: 72px;
+  letter-spacing: -0.5px;
+}
+
+%h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 48px;
+  line-height: 60px;
+  letter-spacing: 0px;
+}
+
+%h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 34px;
+  line-height: 36px;
+  letter-spacing: 0.25px;
+}
+
+%h5 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.35px;
+}
+
+%h6 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+}
+
+%s1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.18px;
+}
+
+%s2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.18px;
+}
+
+.h1 {
+  @extend %h1;
+}
+.h2 {
+  @extend %h2;
+}
+.h3 {
+  @extend %h3;
+}
+.h4 {
+  @extend %h4;
+}
+.h5 {
+  @extend %h5;
+}
+.h6 {
+  @extend %h6;
+}
+.s1 {
+  @extend %s1;
+}
+.s2 {
+  @extend %s2;
+}
+
