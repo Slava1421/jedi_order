@@ -1,0 +1,9 @@
+.cz-hint {
+	@extend %s2;
+	margin-left: 8px;
+	color: $grey-1;
+	width: fit-content;
+	&.cz-form-field-hint-end {
+		order: 1;
+	}
+}

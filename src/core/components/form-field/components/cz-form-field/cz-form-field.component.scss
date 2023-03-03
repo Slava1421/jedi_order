@@ -1,0 +1,70 @@
+@import "../../../../../colors.scss";
+
+.cz-form-field {
+  display: inline-block;
+}
+
+.cz-form-field__wrapper {
+  & .cz-form-field__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px 0;
+
+    & .cz-form-field-label {
+      color: $grey-1;
+      height: 20px;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+    }
+
+    & .cz-form-field-input {
+      border-bottom: 2px solid #ccc;
+      // border-radius: 0.25rem;
+      width: 100%;
+      outline: none;
+      display: flex;
+      align-items: center;
+
+      &__prefix {
+        display: flex;
+        padding-left: 8px;
+      }
+
+      &__suffix {
+        display: flex;
+        padding-right: 8px;
+      }
+
+      &__focus {
+        border-bottom: 2px solid #5a5a5a !important;
+        // box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      &:hover {
+        border-bottom: 2px solid #ababab;
+        // box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+    }
+
+    & .cz-form-field-subscript-wrapper {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+
+      & .cz-form-field-hint-wrapper {
+        display: flex;
+
+        & .cz-form-field-hint-space {
+          flex: 1 0 1em;
+        }
+      }
+
+      & .cz-form-field-error-wrapper {
+        display: flex;
+      }
+    }
+
+  }
+}

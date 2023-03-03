@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./fonts.scss";
 @import "./colors.scss";
+@import "./assets/styles/input.scss";
+@import "./assets/styles/hint.scss";
+@import "./assets/styles/error.scss";
 
 body {
   margin: 0;

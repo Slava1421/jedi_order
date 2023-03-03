@@ -1,0 +1,37 @@
+<div class="cz-form-field__wrapper">
+  <div class="cz-form-field__container" *ngIf="!!control" (click)="onContainerClick($event)">
+
+    <label class="cz-form-field-label s2" [attr.for]="control.id" *ngIf="hasLabel">
+      <!-- <ng-container *ngIf="!!control.placeholder && !labelChild && value.length > 0">
+        <span>{{control.placeholder}}</span>
+      </ng-container> -->
+
+      <ng-content select="cz-label" *ngIf="!!labelChild"></ng-content>
+    </label>
+
+    <div class="cz-form-field-input s1" [class.cz-form-field-input__focus]="control.focused">
+      <div class="cz-form-field-input__prefix" *ngIf="prefixChildren.length">
+        <ng-content select="[czPrefix]"></ng-content>
+      </div>
+      <ng-content></ng-content>
+      <div class="cz-form-field-input__suffix" *ngIf="suffixChildren.length">
+        <ng-content select="[czSuffix]"></ng-content>
+      </div>
+    </div>
+
+    <div class="cz-form-field-subscript-wrapper" [ngSwitch]="getDisplayedMessages()">
+
+      <div class="cz-form-field-error-wrapper" *ngSwitchCase="'error'">
+        <ng-content select="cz-error"></ng-content>
+      </div>
+
+      <div class="cz-form-field-hint-wrapper" *ngSwitchCase="'hint'">
+        <!-- <ng-content select="cz-hint"></ng-content> -->
+        <ng-content select="cz-hint:not([align='end'])"></ng-content>
+        <div class="cz-form-field-hint-space"></div>
+        <ng-content select="cz-hint[align='end']"></ng-content>
+      </div>
+    </div>
+
+  </div>
+</div>
