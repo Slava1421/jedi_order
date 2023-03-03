@@ -1,8 +1,25 @@
 <div class="container">
   <h1 class="h6">Вітаю! Це сервіс, де трохи можна повчити JS</h1>
   <form [formGroup]="authForm" action="" method="post" (submit)="onSubmit()">
-    <input type="text" name="email" placeholder="Електронна адреса" formControlName="email">
-    <input type="password" name="password" placeholder="Пароль" formControlName="password">
+
+    <cz-form-field class="full-width">
+      <!-- <cz-label>Телефон</cz-label> -->
+      <cz-error>
+        {{authForm.controls['email'].errors && authForm.controls['email'].errors['errorMessage']}} 
+      </cz-error>
+      <input type="text" czInput placeholder="Електронна адреса" formControlName="email">
+      <!-- <cz-hint align="end">hint</cz-hint> -->
+    </cz-form-field>
+    <cz-form-field class="full-width">
+      <!-- <cz-label>Телефон1</cz-label> -->
+      <cz-error>
+        {{authForm.controls['password'].errors && authForm.controls['password'].errors['errorMessage']}}
+      </cz-error>
+      <input type="password" czInput placeholder="Пароль" formControlName="password">
+    </cz-form-field>
+
+    <!-- <input type="text" name="email" placeholder="Електронна адреса" formControlName="email">
+    <input type="password" name="password" placeholder="Пароль" formControlName="password"> -->
     <button  type="submit" name="login" cz-button color="green">Вхід</button>
     <!-- <button type="submit" name="newUser">Створити користувача</button> -->
   </form>

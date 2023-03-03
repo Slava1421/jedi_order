@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { ButtonModule } from '../../core/components/button/button.module';
+import { InputModule } from '../../core/components/input/input.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormFieldModule } from '../../core/components/form-field/form-field.module';
 
 
 
@@ -13,7 +16,10 @@ import { ButtonModule } from '../../core/components/button/button.module';
   imports: [
     CommonModule,
     MainPageRoutingModule,
-    ButtonModule
+    ButtonModule,
+    InputModule,
+    ReactiveFormsModule,
+    FormFieldModule
   ]
 })
 export class MainPageModule { }

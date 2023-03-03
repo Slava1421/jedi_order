@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonColor } from 'src/core/components/button/models/cz-button.model';
 import { AuthService } from '../../../../core/services/auth/auth.service';
@@ -12,9 +12,20 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
 export class AuthPageComponent {
   color: ButtonColor = 'green';
 
+  validEmpty = (c: AbstractControl): ValidationErrors | null => {
+
+    if(!c.value) {
+      return {
+        errorMessage: 'Заповніть поле'
+      };
+    }
+  
+    return null;
+  }
+
   authForm: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('', (c: AbstractControl) => this.validEmpty(c)),
+    password: new FormControl('', (c: AbstractControl) => this.validEmpty(c)),
   });
   constructor(
     private _auth: AuthService,
@@ -22,6 +33,7 @@ export class AuthPageComponent {
   ) { }
 
   onSubmit(): void {
+    
     if (!this.authForm.valid) {
       return;
     }

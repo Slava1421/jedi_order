@@ -1,9 +1,30 @@
-
-
 <div class="page">
   <div class="h3">
     Сторінка в розробці
-    
+
     <button cz-button (click)="logout()">Вийти</button>
+    <button cz-button (click)="test()">Тест</button>
+
+    <cz-form-field>
+      <!-- <cz-label>Телефон</cz-label> -->
+      <!-- <button czSuffix cz-button (click)="test()">ddsdsdsd</button> -->
+      <cz-error>
+        {{input.errors && input.errors['errorMessage'] }}
+      </cz-error>
+      <span czPrefix>+380</span>
+      <cz-hint align="end">hint</cz-hint>
+      <input type="text" czInput placeholder="000 00 00 000" [formControl]="input" value="llll">
+    </cz-form-field>
+
+    <cz-form-field>
+      <cz-label>Телефон</cz-label>
+      <!-- <button czSuffix cz-button (click)="test()">ddsdsdsd</button> -->
+      <cz-error>
+        {{input.errors && input.errors['errorMessage'] }}
+      </cz-error>
+      <span czPrefix>+380</span>
+      <cz-hint align="end">hint</cz-hint>
+      <input type="text" czInput placeholder="Kfsffffa">
+    </cz-form-field>
   </div>
 </div>

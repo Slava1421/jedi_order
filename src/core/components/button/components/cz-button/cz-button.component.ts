@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewEncapsulation } from '@angular/core';
 import { CzButtonBase, CZ_BUTTON_HOST, CZ_BUTTON_INPUTS } from '../../shared/base-button';
 
 @Component({
@@ -7,6 +7,7 @@ import { CzButtonBase, CZ_BUTTON_HOST, CZ_BUTTON_INPUTS } from '../../shared/bas
   styleUrls: ['./cz-button.component.scss'],
   inputs: CZ_BUTTON_INPUTS,
   host: CZ_BUTTON_HOST,
+  encapsulation: ViewEncapsulation.None
 })
 export class CzButtonComponent extends CzButtonBase {
 
