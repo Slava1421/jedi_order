@@ -1,0 +1,32 @@
+.sidebar__head {
+  height: 52px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & .content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    transition: opacity .3s;
+    opacity: 1;
+
+    &.opacity {
+      opacity: 0;
+    }
+  }
+
+  & .nav-collapsed {
+    background-color: #f0f8ff80;
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color .5s;
+
+    &:hover {
+      background-color: #f0f8ffc2;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<div class="sidebar__menu" [class.sidebar__menu_collapsed]="collapsed">
+  <div class="sidebar__body">
+    <ng-content select="nav-head"></ng-content>
+    <ul class="sidebar__items h6">
+      <ng-content select="nav-item"></ng-content>
+    </ul>
+  </div>
+  <ng-content select="nav-footer"></ng-content>
+</div>
+
+<div class="sidebar__content">
+
+</div>
