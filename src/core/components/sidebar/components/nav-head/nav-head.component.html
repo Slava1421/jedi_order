@@ -1,0 +1,7 @@
+<div class="nav-collapsed" (click)="collapse()">
+  <cz-icon class="icon" src="assets/icons/burger.svg"></cz-icon>
+</div>
+
+<div class="content" [class.opacity]="collapsed">
+  <ng-content></ng-content>
+</div>

@@ -6,6 +6,8 @@ import { ButtonModule } from '../../core/components/button/button.module';
 import { InputModule } from '../../core/components/input/input.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '../../core/components/form-field/form-field.module';
+import { IconModule } from '../../core/components/icon/icon.module';
+import { SidebarModule } from '../../core/components/sidebar/sidebar.module';
 
 
 
@@ -19,7 +21,9 @@ import { FormFieldModule } from '../../core/components/form-field/form-field.mod
     ButtonModule,
     InputModule,
     ReactiveFormsModule,
-    FormFieldModule
+    FormFieldModule,
+    IconModule,
+    SidebarModule
   ]
 })
 export class MainPageModule { }

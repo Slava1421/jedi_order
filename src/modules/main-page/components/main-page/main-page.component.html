@@ -1,30 +1,39 @@
 <div class="page">
   <div class="h3">
-    Сторінка в розробці
+    <cz-sidebar>
+      <nav-head>
+        <cz-icon class="icon" src="assets/icons/arrow-down-right-circle.svg"></cz-icon>
+        JS
+      </nav-head>
+      <nav-item iconSrc="assets/icons/search.svg">
+        <div class="nav-item__wrapper">
+          Пошук
+        </div>
+      </nav-item>
+      <nav-item iconSrc="assets/icons/document.svg">
+        <div class="nav-item__wrapper">
+          Конспект
+        </div>
+      </nav-item>
+      <nav-item iconSrc="assets/icons/help.svg" [routerLink]="'/jjj'">
+        <div class="nav-item__wrapper">
+          Допомога
+        </div>
+      </nav-item>
 
-    <button cz-button (click)="logout()">Вийти</button>
-    <button cz-button (click)="test()">Тест</button>
+      <nav-footer [avatar]="avatar">
 
-    <cz-form-field>
-      <!-- <cz-label>Телефон</cz-label> -->
-      <!-- <button czSuffix cz-button (click)="test()">ddsdsdsd</button> -->
-      <cz-error>
-        {{input.errors && input.errors['errorMessage'] }}
-      </cz-error>
-      <span czPrefix>+380</span>
-      <cz-hint align="end">hint</cz-hint>
-      <input type="text" czInput placeholder="000 00 00 000" [formControl]="input" value="llll">
-    </cz-form-field>
+        <div class="footer__content">
+          <span *ngIf="!collapsed" [title]="userName" class="s2">{{userName}}</span>
+          <div class="logout" (click)="logout()">
+            <cz-icon src="assets/icons/logout.svg"></cz-icon>
+          </div>
+        </div>
+      </nav-footer>
+    </cz-sidebar>
 
-    <cz-form-field>
-      <cz-label>Телефон</cz-label>
-      <!-- <button czSuffix cz-button (click)="test()">ddsdsdsd</button> -->
-      <cz-error>
-        {{input.errors && input.errors['errorMessage'] }}
-      </cz-error>
-      <span czPrefix>+380</span>
-      <cz-hint align="end">hint</cz-hint>
-      <input type="text" czInput placeholder="Kfsffffa">
-    </cz-form-field>
+
+
   </div>
+  <!-- <button cz-button (click)="logout()">Вийти</button> -->
 </div>

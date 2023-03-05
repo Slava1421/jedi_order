@@ -27,3 +27,39 @@
   align-items: center;
   justify-content: center;
 }
+
+.nav-item__wrapper {
+  display: flex;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.footer__content {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+
+
+
+  & span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: all .3s;
+  }
+
+  & .logout {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 56px;
+    justify-content: center;
+    transition: background-color .5s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #adecd7;
+    }
+  }
+}

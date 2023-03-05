@@ -1,0 +1,23 @@
+.icon-container {
+  display: flex;
+
+  & img {
+    height: inherit;
+    width: inherit;
+  }
+}
+
+.size__24 {
+  height: 24px;
+  width: 24px;
+}
+
+.size__12 {
+  height: 12px;
+  width: 12px;
+}
+
+.size__32 {
+  height: 32px;
+  width: 32px;
+}
