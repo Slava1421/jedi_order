@@ -1,24 +1,28 @@
 .sidebar__item {
-  padding: 4px 8px;
+  padding: 4px 16px;
   border-radius: 8px;
   cursor: pointer;
-  display: block;
   min-height: 50px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   transition: background-color .5s;
 
+  color: var(--text-color);
+  // transition: var(--tran-03);
+
   &:not(:first-child) {
     margin-top: 8px;
   }
 
-  & li {
+  & .item {
     display: flex;
+    align-items: center;
 
     & .item__content {
       transition: opacity .3s;
-      &.opacity {
+
+      &.collapsed {
         opacity: 0;
       }
     }
@@ -29,6 +33,21 @@
   }
 }
 
-.sidebar__item:hover {
-  background-color: #8ed7c6;
+// .sidebar__item:hover {
+//   background-color: var(--primary-color);
+//   color: var(--sidebar-color);
+// }
+
+.sidebar.dark {
+  .sidebar__item:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+  }
+}
+
+.sidebar:not(.sidebar.dark) {
+  .sidebar__item:hover {
+    background-color: var(--primary-color);
+    color: var(--sidebar-color);
+  }
 }

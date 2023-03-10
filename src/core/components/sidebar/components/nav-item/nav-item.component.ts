@@ -15,7 +15,7 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
 export class NavItemComponent implements OnDestroy {
   private unsuscriber$ = new Subject();
   collapsed = false;
-  @Input() iconSrc: string;
+  @Input() icon: string;
 
   constructor(@Inject(SIDEBAR_CONTROLLER) sidebarController: CzSidebarControllerService) {
     sidebarController.collapsed$

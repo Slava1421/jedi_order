@@ -37,29 +37,11 @@
 }
 
 .footer__content {
+
+  width: 100%;
   display: flex;
-  overflow: hidden;
   align-items: center;
+  padding: 4px 16px;
+  justify-content: center;
 
-
-
-  & span {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    transition: all .3s;
-  }
-
-  & .logout {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    width: 56px;
-    justify-content: center;
-    transition: background-color .5s;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #adecd7;
-    }
-  }
 }

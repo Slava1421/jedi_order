@@ -10,7 +10,6 @@ export const CZ_BUTTON_HOST = {
   '[class.unthemed]': '!color',
 };
 
-
 @Directive()
 export class CzButtonBase extends ButtonMixin implements OnInit, OnDestroy {
   constructor(

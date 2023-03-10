@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./fonts.scss";
 @import "./colors.scss";
+@import "./theme.scss";
+@import "./icons.scss";
 @import "./assets/styles/input.scss";
 @import "./assets/styles/hint.scss";
 @import "./assets/styles/error.scss";
@@ -8,4 +10,39 @@
 body {
   margin: 0;
   padding: 0;
+}
+
+// scrollbar style
+
+%webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	// background-color: #F5F5F5;
+}
+
+%webkit-scrollbar {
+  width: 4px;
+	background-color: transparent;
+}
+
+%webkit-scrollbar-thumb {
+  border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+.scrollbar-style-1 {
+  &::-webkit-scrollbar-track {
+    @extend %webkit-scrollbar-track;
+  }
+
+  &::-webkit-scrollbar {
+    @extend %webkit-scrollbar;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @extend %webkit-scrollbar-thumb;
+  }
 }
