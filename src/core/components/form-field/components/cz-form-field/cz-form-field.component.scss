@@ -38,11 +38,11 @@
       }
 
       &__focus {
-        border-bottom: 2px solid #5a5a5a !important;
+        border-bottom: 2px solid #5a5a5a;
         // box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
       }
 
-      &:hover {
+      &:hover:not(.cz-form-field-input__focus) {
         border-bottom: 2px solid #ababab;
         // box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
       }

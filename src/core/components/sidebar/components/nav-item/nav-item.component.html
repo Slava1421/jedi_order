@@ -1,6 +1,6 @@
-<li>
-  <cz-icon class="icon" [src]="iconSrc"></cz-icon>
-  <div class="item__content" [class.opacity]="collapsed">
+<div class="item">
+  <cz-icon class="icon" [icon]="icon"></cz-icon>
+  <div class="item__content" [class.collapsed]="collapsed">
     <ng-content></ng-content>
   </div>
-</li>
+</div>

@@ -13,6 +13,11 @@
   transition: background-color 0.3s;
   @extend %s2;
 
+  .cz-button__content {
+    display: flex;
+    align-items: center;
+  }
+
   &[color="red"] {
     background-color: $red-1;
 
@@ -21,7 +26,16 @@
     }
   }
 
-  &[color="purle"], &.unthemed {
+  &[color="dark"] {
+    background-color: $dark-1;
+
+    &:hover {
+      background-color: $dark-2;
+    }
+  }
+
+  &[color="purle"],
+  &.unthemed {
     background-color: $purle-1;
 
     &:hover {

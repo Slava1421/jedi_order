@@ -1,4 +1,4 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Input, ViewEncapsulation } from '@angular/core';
 import { SIDEBAR_CONTROLLER } from '../../models/cz-sidebar';
 import { CzSidebarControllerService } from '../../services/cz-sidebar-controller.service';
 
@@ -12,7 +12,9 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
   },
 })
 export class NavHeadComponent {
-  collapsed: boolean
+  collapsed: boolean;
+
+  @Input() avatar: string;
 
   constructor(@Inject(SIDEBAR_CONTROLLER) private sidebarController: CzSidebarControllerService) {
     this.collapsed = sidebarController.collapsed$.value;

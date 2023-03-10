@@ -1,0 +1,140 @@
+$default-color: #000;
+
+.size_12 {
+  width: 12px;
+  height: 12px;
+
+  -webkit-mask-size: 12px;
+  mask-size: 12px;
+}
+
+.size_24 {
+  width: 24px;
+  height: 24px;
+
+  -webkit-mask-size: 24px;
+  mask-size: 24px;
+}
+
+.size_32 {
+  width: 32px;
+  height: 32px;
+
+  -webkit-mask-size: 32px;
+  mask-size: 32px;
+}
+
+.icon__arrow-down-right-circle {
+  mask-image: url('/assets/icons/arrow-down-right-circle.svg');
+  -webkit-mask-image: url('/assets/icons/arrow-down-right-circle.svg');
+}
+
+.icon__arrow-left {
+  mask-image: url('/assets/icons/arrow-left.svg');
+  -webkit-mask-image: url('/assets/icons/arrow-left.svg');
+}
+
+.icon__arrow-right {
+  mask-image: url('/assets/icons/arrow-right.svg');
+  -webkit-mask-image: url('/assets/icons/arrow-right.svg');
+}
+
+.icon__burger {
+  mask-image: url('/assets/icons/burger.svg');
+  -webkit-mask-image: url('/assets/icons/burger.svg');
+}
+
+.icon__document {
+  mask-image: url('/assets/icons/document.svg');
+  -webkit-mask-image: url('/assets/icons/document.svg');
+}
+
+.icon__filter {
+  mask-image: url('/assets/icons/filter.svg');
+  -webkit-mask-image: url('/assets/icons/filter.svg');
+}
+
+.icon__help {
+  mask-image: url('/assets/icons/help.svg');
+  -webkit-mask-image: url('/assets/icons/help.svg');
+}
+
+.icon__login {
+  mask-image: url('/assets/icons/login.svg');
+  -webkit-mask-image: url('/assets/icons/login.svg');
+}
+
+.icon__logout {
+  mask-image: url('/assets/icons/logout.svg');
+  -webkit-mask-image: url('/assets/icons/logout.svg');
+}
+
+.icon__more-vertical {
+  mask-image: url('/assets/icons/more-vertical.svg');
+  -webkit-mask-image: url('/assets/icons/more-vertical.svg');
+}
+
+.icon__plus {
+  mask-image: url('/assets/icons/plus.svg');
+  -webkit-mask-image: url('/assets/icons/plus.svg');
+}
+
+.icon__refresh {
+  mask-image: url('/assets/icons/refresh.svg');
+  -webkit-mask-image: url('/assets/icons/refresh.svg');
+}
+
+.icon__search {
+  mask-image: url('/assets/icons/search.svg');
+  -webkit-mask-image: url('/assets/icons/search.svg');
+}
+
+.icon__settings {
+  mask-image: url('/assets/icons/settings.svg');
+  -webkit-mask-image: url('/assets/icons/settings.svg');
+}
+
+.icon__user {
+  mask-image: url('/assets/icons/user.svg');
+  -webkit-mask-image: url('/assets/icons/user.svg');
+}
+
+.icon__x-small {
+  mask-image: url('/assets/icons/x-small.svg');
+  -webkit-mask-image: url('/assets/icons/x-small.svg');
+}
+
+.icon__x {
+  mask-image: url('/assets/icons/x.svg');
+  -webkit-mask-image: url('/assets/icons/x.svg');
+}
+
+.icon__chevron-down {
+  mask-image: url('/assets/icons/chevron-down.svg');
+  -webkit-mask-image: url('/assets/icons/chevron-down.svg');
+}
+
+.icon__chevron-up {
+  mask-image: url('/assets/icons/chevron-up.svg');
+  -webkit-mask-image: url('/assets/icons/chevron-up.svg');
+}
+
+.icon__chevron-left {
+  mask-image: url('/assets/icons/chevron-left.svg');
+  -webkit-mask-image: url('/assets/icons/chevron-left.svg');
+}
+
+.icon__chevron-right {
+  mask-image: url('/assets/icons/chevron-right.svg');
+  -webkit-mask-image: url('/assets/icons/chevron-right.svg');
+}
+
+.icon__moon {
+  mask-image: url('/assets/icons/moon.svg');
+  -webkit-mask-image: url('/assets/icons/moon.svg');
+}
+.icon__sun {
+  mask-image: url('/assets/icons/sun.svg');
+  -webkit-mask-image: url('/assets/icons/sun.svg');
+}
+

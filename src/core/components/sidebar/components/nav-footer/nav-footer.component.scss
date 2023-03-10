@@ -1,20 +1,8 @@
 .nav-footer {
-  background: #8ed7c6;
-  height: 68px;
+  min-height: 60px;
   display: flex;
   align-items: center;
-
-  & .nav-footer__avatar {
-    display: flex;
-    transition: all .3s;
-    width: 50px;
-
-    &.collapsed {
-      width: 0;
-      opacity: 0;
-    }
-  }
-
+  color: var(--text-color);
   & .nav-footer__content {
     display: flex;
     overflow: hidden;

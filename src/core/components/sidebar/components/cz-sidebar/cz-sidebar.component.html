@@ -1,11 +1,16 @@
 <div class="sidebar__menu" [class.sidebar__menu_collapsed]="collapsed">
-  <div class="sidebar__body">
+  <div class="sidebar__menu-body">
     <ng-content select="nav-head"></ng-content>
-    <ul class="sidebar__items h6">
+
+    <div class="switch-theme">
+      <cz-icon [icon]="isDark ? 'sun' : 'moon'" (click)="onSwitchTheme()"></cz-icon>
+    </div>
+
+    <div class="sidebar__items scrollbar-style-1 s1">
       <ng-content select="nav-item"></ng-content>
-    </ul>
+    </div>
+    <ng-content select="nav-footer"></ng-content>
   </div>
-  <ng-content select="nav-footer"></ng-content>
 </div>
 
 <div class="sidebar__content">

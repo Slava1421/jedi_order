@@ -15,5 +15,14 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
 })
 export class CzIconComponent {
   @Input() size: 12 | 24 | 32 = 24;
-  @Input() src = '';
+  @Input() icon = '';
+  @Input() color = 'currentColor';
+
+  get iconSizeClass(): string {
+    return `size_${this.size}`;
+  }
+
+  get iconNameClass(): string {
+    return `icon__${this.icon}`;
+  }
 }

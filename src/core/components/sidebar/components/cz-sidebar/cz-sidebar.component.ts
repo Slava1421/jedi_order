@@ -8,14 +8,23 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
   templateUrl: './cz-sidebar.component.html',
   styleUrls: ['./cz-sidebar.component.scss'],
   host: {
-    'class': 'sidebar',
+    'class': 'sidebar ',
+    '[class.dark]': 'isDark',
   },
   encapsulation: ViewEncapsulation.None,
   
 })
 export class CzSidebarComponent implements OnDestroy {
   private unsuscriber$ = new Subject();
+  private _themeState: 'dark' | 'light' = 'light';
   collapsed = false;
+
+  
+  public get isDark() : boolean {
+    return this._themeState === 'dark';
+  }
+  
+
   constructor(@Inject(SIDEBAR_CONTROLLER) sidebarController: CzSidebarControllerService) {
     sidebarController.collapsed$
       .pipe(takeUntil(this.unsuscriber$))
@@ -24,6 +33,10 @@ export class CzSidebarComponent implements OnDestroy {
           this.collapsed = val;
         }
       });
+  }
+
+  onSwitchTheme(): void {
+    this._themeState = this._themeState === 'dark' ? 'light' : 'dark';
   }
 
   ngOnDestroy(): void {
