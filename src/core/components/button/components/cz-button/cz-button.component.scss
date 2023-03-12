@@ -26,11 +26,40 @@
     }
   }
 
-  &[color="dark"] {
-    background-color: $dark-1;
+
+  // .sidebar.dark {
+  //   .sidebar__item:hover {
+  //     background-color: var(--primary-color);
+  //     color: var(--text-color);
+  //   }
+  // }
+
+  // .sidebar:not(.sidebar.dark) {
+  //   .sidebar__item:hover {
+  //     background-color: var(--primary-color);
+  //     color: var(--sidebar-color);
+  //   }
+  // }
+
+
+  &[color="dark"],
+  &.dark-theme {
+    background-color: transparent;
 
     &:hover {
-      background-color: $dark-2;
+      background-color: var(--primary-color);
+      color: var(--toggle-color);
+    }
+  }
+
+  &[color="light"],
+  &.light-theme {
+    background-color: transparent;
+    color: var(--text-color);
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--sidebar-color);
     }
   }
 

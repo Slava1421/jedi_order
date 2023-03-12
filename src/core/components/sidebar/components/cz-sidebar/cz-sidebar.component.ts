@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { SIDEBAR_CONTROLLER } from '../../models/cz-sidebar';
+import { SIDEBAR_TOKEN, SIDEBAR_CONTROLLER, SidebarThemes } from '../../models/cz-sidebar';
 import { CzSidebarControllerService } from '../../services/cz-sidebar-controller.service';
 
 @Component({
@@ -12,7 +12,9 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
     '[class.dark]': 'isDark',
   },
   encapsulation: ViewEncapsulation.None,
-  
+  providers:[{
+    provide: SIDEBAR_TOKEN, useClass: CzSidebarComponent
+  }]
 })
 export class CzSidebarComponent implements OnDestroy {
   private unsuscriber$ = new Subject();
@@ -25,8 +27,8 @@ export class CzSidebarComponent implements OnDestroy {
   }
   
 
-  constructor(@Inject(SIDEBAR_CONTROLLER) sidebarController: CzSidebarControllerService) {
-    sidebarController.collapsed$
+  constructor(@Inject(SIDEBAR_CONTROLLER) private _sidebarController: CzSidebarControllerService) {
+    _sidebarController.collapsed$
       .pipe(takeUntil(this.unsuscriber$))
       .subscribe({
         next: (val: boolean) => {
@@ -37,6 +39,7 @@ export class CzSidebarComponent implements OnDestroy {
 
   onSwitchTheme(): void {
     this._themeState = this._themeState === 'dark' ? 'light' : 'dark';
+    this._sidebarController.themeToggle(this._themeState as SidebarThemes);
   }
 
   ngOnDestroy(): void {
