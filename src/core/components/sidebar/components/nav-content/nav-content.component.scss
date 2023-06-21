@@ -1,0 +1,22 @@
+.sidebar__content {
+  background-color: var(--body-color);
+  color: var(--text-color);
+  transition: var(--tran-03);
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+// .sidebar.dark {
+//   .sidebar__item:hover {
+//     background-color: var(--primary-color);
+//     color: var(--text-color);
+//   }
+// }
+
+// .sidebar:not(.sidebar.dark) {
+//   .sidebar__item:hover {
+//     background-color: var(--primary-color);
+//     color: var(--sidebar-color);
+//   }
+// }
