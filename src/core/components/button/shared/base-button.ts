@@ -1,5 +1,5 @@
 import { Directive, ElementRef, NgZone, OnDestroy, OnInit } from "@angular/core";
-import { CzSidebarComponent } from "../../sidebar/components/cz-sidebar/cz-sidebar.component";
+import { Subject, takeUntil } from "rxjs";
 import { SidebarThemes } from "../../sidebar/models/cz-sidebar";
 import { CzSidebarControllerService } from "../../sidebar/services/cz-sidebar-controller.service";
 import { _MatButtonMixin as ButtonMixin } from "./disabled-button";
@@ -19,23 +19,26 @@ export const CZ_BUTTON_HOST = {
 @Directive()
 export class CzButtonBase extends ButtonMixin implements OnInit, OnDestroy {
 
+  private _unsubscribe$ = new Subject();
   themeState: SidebarThemes | undefined = undefined;
 
   constructor(
     _elementRef: ElementRef,
     private _ngZone: NgZone,
-    private _czSidebar: CzSidebarComponent,
     private _sidebarController: CzSidebarControllerService
   ) {
     super(_elementRef);
 
     if (_sidebarController) {
-      _sidebarController.themeState$.subscribe({
-        next: (v) => {
-          console.log(v, 'dddddddddddddddddddddddd');
-          this.themeState = v;
-        }
-      });
+      _sidebarController.themeState$
+        .pipe(
+          takeUntil(this._unsubscribe$)
+        )
+        .subscribe({
+          next: (v) => {
+            this.themeState = v;
+          }
+        });
     }
   }
 
@@ -47,6 +50,8 @@ export class CzButtonBase extends ButtonMixin implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._elementRef.nativeElement.removeEventListener('click', this._haltDisabledEvents);
+    this._unsubscribe$.next(null);
+    this._unsubscribe$.complete();
   }
 
   _haltDisabledEvents = (event: Event): void => {
