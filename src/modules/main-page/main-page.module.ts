@@ -8,8 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '../../core/components/form-field/form-field.module';
 import { IconModule } from '../../core/components/icon/icon.module';
 import { SidebarModule } from '../../core/components/sidebar/sidebar.module';
-import { UkrainianMapModule } from '../ukrainian-map/ukrainian-map.module';
-import { EditableModule } from '../editable/editable.module';
 
 
 
@@ -25,9 +23,7 @@ import { EditableModule } from '../editable/editable.module';
     ReactiveFormsModule,
     FormFieldModule,
     IconModule,
-    SidebarModule,
-    UkrainianMapModule,
-    EditableModule
+    SidebarModule
   ]
 })
 export class MainPageModule { }
