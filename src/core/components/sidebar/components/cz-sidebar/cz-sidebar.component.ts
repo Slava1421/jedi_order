@@ -12,7 +12,7 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
     '[class.dark]': 'isDark',
   },
   encapsulation: ViewEncapsulation.None,
-  providers:[{
+  providers: [{
     provide: SIDEBAR_TOKEN, useClass: CzSidebarComponent
   }]
 })
@@ -21,13 +21,15 @@ export class CzSidebarComponent implements OnDestroy {
   private _themeState: 'dark' | 'light' = 'light';
   collapsed = false;
 
-  
-  public get isDark() : boolean {
+
+  public get isDark(): boolean {
     return this._themeState === 'dark';
   }
-  
 
-  constructor(@Inject(SIDEBAR_CONTROLLER) private _sidebarController: CzSidebarControllerService) {
+
+  constructor(
+    @Inject(SIDEBAR_CONTROLLER) private _sidebarController: CzSidebarControllerService
+  ) {
     _sidebarController.collapsed$
       .pipe(takeUntil(this.unsuscriber$))
       .subscribe({

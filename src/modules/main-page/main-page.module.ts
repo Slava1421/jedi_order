@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '../../core/components/form-field/form-field.module';
 import { IconModule } from '../../core/components/icon/icon.module';
 import { SidebarModule } from '../../core/components/sidebar/sidebar.module';
+import { SliderModule } from '../../core/components/slider/slider.module';
 
 
 
@@ -23,7 +24,8 @@ import { SidebarModule } from '../../core/components/sidebar/sidebar.module';
     ReactiveFormsModule,
     FormFieldModule,
     IconModule,
-    SidebarModule
+    SidebarModule,
+    SliderModule
   ]
 })
 export class MainPageModule { }

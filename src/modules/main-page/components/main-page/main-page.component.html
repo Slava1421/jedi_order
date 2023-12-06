@@ -1,41 +1,67 @@
 <div class="page">
-    <cz-sidebar>
-      <nav-head [avatar]="avatar">
-        <!-- <cz-icon class="icon" icon="arrow-down-right-circle"></cz-icon> -->
-        <span class="s2">Popenko</span> 
-      </nav-head>
-      <nav-item icon="search">
-        <div class="nav-item__wrapper">
-          Пошук
-        </div>
-      </nav-item>
-      <nav-item icon="document">
-        <div class="nav-item__wrapper">
-          Конспект
-        </div>
-      </nav-item>
-      <nav-item icon="help" [routerLink]="'/jjj'">
-        <div class="nav-item__wrapper">
-          Допомога
-        </div>
-      </nav-item>
+  <cz-sidebar>
+    <nav-head [avatar]="avatar">
+      <!-- <cz-icon class="icon" icon="arrow-down-right-circle"></cz-icon> -->
+      <span class="s2">Popenko</span>
+    </nav-head>
+    <nav-item icon="search">
+      <div class="nav-item__wrapper">
+        Пошук
+      </div>
+    </nav-item>
+    <nav-item icon="document">
+      <div class="nav-item__wrapper">
+        Конспект
+      </div>
+    </nav-item>
+    <nav-item icon="help" [routerLink]="'/jjj'">
+      <div class="nav-item__wrapper">
+        Допомога
+      </div>
+    </nav-item>
 
-      <nav-footer>
+    <nav-footer>
 
-        <div class="footer__content">
-          
-          <button cz-button  (click)="logout()"><cz-icon icon="logout"></cz-icon></button> 
+      <div class="footer__content">
+
+        <button cz-button (click)="logout()"><cz-icon icon="logout"></cz-icon></button>
+      </div>
+    </nav-footer>
+
+    <nav-content>
+      <cz-slider>
+        <cz-slider-item *czSliderItemDef>
+          <div class="sl-item sl-item1">
+          </div>
+        </cz-slider-item>
+        <cz-slider-item *czSliderItemDef >
+          <div class="sl-item sl-item2">
+            22
+          </div>
+        </cz-slider-item>
+        <cz-slider-item *czSliderItemDef >
+          <div class="sl-item sl-item3">
+            333
+          </div>
+        </cz-slider-item>
+        <cz-slider-item *czSliderItemDef >
+          <div class="sl-item sl-item4">
+            4444
+          </div>
+        </cz-slider-item>
+      </cz-slider>
+
+
+      <!-- <div style="height: 700px;">
+        <div>
+          <div class="sl-item sl-item1" style="height: inherit;"></div>
+          <div class="sl-item sl-item2" style="height: inherit;"></div>
+          <div class="sl-item sl-item3" style="height: inherit;"></div>
+          <div class="sl-item sl-item4" style="height: inherit;"></div>
         </div>
-      </nav-footer>
+      </div> -->
+    </nav-content>
+  </cz-sidebar>
 
-      <nav-content>
-        <!-- <ukrainian-map></ukrainian-map> -->
-        <div editable>
-          111222333
-        </div>
-      </nav-content>
-    </cz-sidebar>
 
-    
 </div>
-

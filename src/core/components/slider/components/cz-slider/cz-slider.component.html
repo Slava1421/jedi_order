@@ -1,0 +1,16 @@
+<div #itemContainer class="item-container" [class.item-container_animation]="isAnimated"
+  [style.top]="!!positionContainer ? positionContainer : '0'">
+  <ng-container *ngFor="let item of displayItems;">
+    <ng-container [ngTemplateOutlet]="item.tpl">
+    </ng-container>
+  </ng-container>
+</div>
+
+<div class="cz-slider-navigation">
+  <div class="cz-slider-navigation__panel">
+    <div *ngFor="let item of items; let i = index" class="cz-slider-navigation__point cz-slider-navigation__point_animation"
+      [class.cz-slider-navigation__point_active]="i === currentVisibleItemIndex - 1" (click)="toItemPosition(i)">
+      <div class="point"></div>
+    </div>
+  </div>
+</div>

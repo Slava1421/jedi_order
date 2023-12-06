@@ -45,3 +45,33 @@
   justify-content: center;
 
 }
+
+// ======================================================
+.sl-item {
+  height: inherit;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: end;
+  background-size: cover;
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: var(--opacity);
+}
+
+.sl-item1 {
+  background-image: url('https://cs11.pikabu.ru/post_img/big/2020/05/12/9/1589296666113294753.jpg'); 
+}
+
+.sl-item2 {
+  background-image: url('https://img1.akspic.ru/crops/7/0/8/4/5/154807/154807-sredi_derevev-derevo-gejmplej-igra_na_vyzhivanie-atmosfera-1920x1080.jpg');
+}
+
+.sl-item3 {
+  background-image: url('https://pibig.info/uploads/posts/2022-12/1669908633_1-pibig-info-p-minimalistichnie-oboi-na-rabochii-stol-kra-1.jpg');
+}
+
+.sl-item4 {
+  background-image: url('https://searchthisweb.com/wallpaper/firewatch_1920x1080_qjwjj.jpg');
+}

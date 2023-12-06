@@ -45,3 +45,9 @@ function _generateBackgroundByLetter(letter: string): string {
       return 'grey';
   }
 }
+
+export function combineTransforms(transform: string, initialTransform?: string): string {
+  return initialTransform && initialTransform != 'none'
+    ? transform + ' ' + initialTransform
+    : transform;
+}
