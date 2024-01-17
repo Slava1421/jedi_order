@@ -10,12 +10,21 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
   encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'sidebar__item',
+    '[class.sidebar__item_active]': 'activeItem'
   }
 })
 export class NavItemComponent implements OnDestroy {
   private unsuscriber$ = new Subject();
+  private _active: boolean | string;
   collapsed = false;
   @Input() icon: string;
+  @Input() public set activeItem(val: boolean | string) {
+    this._active = val === 'true' || val === true;
+  }
+
+  public get activeItem(): boolean | string {
+    return this._active;
+  }
 
   constructor(@Inject(SIDEBAR_CONTROLLER) sidebarController: CzSidebarControllerService) {
     sidebarController.collapsed$

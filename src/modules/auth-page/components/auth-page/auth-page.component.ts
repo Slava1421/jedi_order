@@ -50,7 +50,6 @@ export class AuthPageComponent {
           this._router.navigate(['/main']);
         },
         error: (e) => {
-          console.error(e);
           alert('Помилка');
         }
       })

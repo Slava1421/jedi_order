@@ -11,16 +11,19 @@
     flex: 1;
     display: flex;
     align-items: center;
-    transition: opacity .3s;
-    opacity: 1;
 
     & .nav-head__avatar {
       margin-right: 4px;
     }
 
-    &.opacity {
+    & .nav-head__content {
+      opacity: 1;
+      transition: opacity .3s;
+      white-space: nowrap;
+    }
+
+    & .nav-head__content_collapsed {
       opacity: 0;
-      overflow: hidden;
     }
   }
 
@@ -30,20 +33,12 @@
     top: 12px;
     padding: 4px;
     border-radius: 5px;
+    z-index: 999;
     cursor: pointer;
   }
 }
 
-.sidebar.dark {
-  .nav-collapsed {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-  }
-}
-
-.sidebar:not(.sidebar.dark) {
-  .nav-collapsed {
-    background-color: var(--primary-color);
-    color: var(--additional-color);
-  }
+.nav-collapsed {
+  background-color: var(--primary-color);
+  color: var(--nav-collapsed-btn-text-color);
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { IAuthResponse, IUser } from './auth.model';
 import { environment } from '../../../environments/environment.development';
 
@@ -11,7 +11,7 @@ export class AuthService {
 
   private _user: IUser | null;
 
-  public isLogin = new BehaviorSubject<boolean | null>(null);
+  public isLogin$ = new BehaviorSubject<boolean | null>(null);
   get user(): IUser | null {
     return this._user;
   }
@@ -25,6 +25,10 @@ export class AuthService {
         tap((resp: IAuthResponse) => {
           localStorage.setItem('authToken', resp.accessToken);
           this._setUser(resp.user, true);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error login:', error);
+          return throwError(() => error);
         })
       );
   }
@@ -34,6 +38,10 @@ export class AuthService {
       tap(() => {
         localStorage.removeItem('authToken');
         this._setUser(null, false);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error logout:', error);
+        return throwError(() => error);
       })
     );
   }
@@ -43,6 +51,13 @@ export class AuthService {
       tap((resp: IAuthResponse) => {
         localStorage.setItem('authToken', resp.accessToken);
         this._setUser(resp.user, true);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error refreshing token:', error);
+        if (error.status === 401) {
+          this._setUser(null, false);
+        }
+        return throwError(() => error);
       })
     );
   }
@@ -54,6 +69,6 @@ export class AuthService {
 
   private _setUser(user: IUser | null, isLogin: boolean): void {
     this._user = user;
-    this.isLogin.next(isLogin);
+    this.isLogin$.next(isLogin);
   }
 }

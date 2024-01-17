@@ -2,13 +2,18 @@
   /* ===== Colors ===== */
   --body-color: #e4e9f7;
   --additional-color: #fff;
+  --additional-color2: #ffabd3;
   --primary-color: #695cfe;
   --primary-color1: #695cfe9c;
   --primary-color2: #ada6ff6e;
   --primary-color-light: #f6f5ff;
+  --primary-color-transparent: #ffeeee33;
+  --boxsahdow1: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   --toggle-color: #ddd;
   --text-color: #707070;
-  --opacity: 0.8;
+  --nav-collapsed-btn-text-color: #fff;
+  --sidebar-item-hover-text-color: #fff;
+  --sidebar-item-active-text-color: #fff;
 
   /* ====== Transition ====== */
   --tran-02: color 0.2s ease, background-color 0.2s ease;
@@ -25,13 +30,17 @@
 .dark {
   --body-color: #18191a;
   --additional-color: #242526;
+  --additional-color2: #4b343f;
   --primary-color: #3a3b3c;
   --primary-color1: #7f7f7fdb;
   --primary-color2: #6969696e;
   --primary-color-light: #3a3b3c;
+  --primary-color-transparent: #0303033f;
+  --boxsahdow1: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  
   --toggle-color: #fff;
   --text-color: #ccc;
-  --opacity: 0.7;
+  --nav-collapsed-btn-text-color: #ccc;
+  --sidebar-item-hover-text-color: #ccc;
+  --sidebar-item-active-text-color: #ccc;
 }
-
-

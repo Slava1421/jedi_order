@@ -9,7 +9,7 @@ import { FormFieldModule } from '../../core/components/form-field/form-field.mod
 import { IconModule } from '../../core/components/icon/icon.module';
 import { SidebarModule } from '../../core/components/sidebar/sidebar.module';
 import { SliderModule } from '../../core/components/slider/slider.module';
-
+import { SnackBarModule } from '../../core/components/snack-bar/snack-bar.module';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { SliderModule } from '../../core/components/slider/slider.module';
     FormFieldModule,
     IconModule,
     SidebarModule,
-    SliderModule
+    SliderModule,
+    SnackBarModule,
   ]
 })
 export class MainPageModule { }

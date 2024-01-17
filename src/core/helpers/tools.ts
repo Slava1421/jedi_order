@@ -51,3 +51,19 @@ export function combineTransforms(transform: string, initialTransform?: string):
     ? transform + ' ' + initialTransform
     : transform;
 }
+
+export function globalTheme(): (themeClassName: string) => void {
+  let currentThemeClassName = '';
+
+  return (themeClassName: string) => {
+    if (currentThemeClassName !== themeClassName) {
+      document.body.classList.add(themeClassName);
+
+      if (!!currentThemeClassName) {
+        document.body.classList.remove(currentThemeClassName);
+      }
+      currentThemeClassName = themeClassName;
+
+    }
+  }
+}

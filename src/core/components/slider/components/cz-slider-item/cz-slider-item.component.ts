@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostBinding, Inject, OnDestroy, Renderer2, ViewEncapsulation } from '@angular/core';
 import { SLIDER_TOKEN } from '../../models/cz-slider';
 import { CzSliderComponent } from '../cz-slider/cz-slider.component';
-import { Subject, fromEvent, map, takeUntil, throttleTime } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'cz-slider-item',
@@ -11,7 +11,6 @@ import { Subject, fromEvent, map, takeUntil, throttleTime } from 'rxjs';
 })
 export class CzSliderItemComponent implements AfterViewInit, OnDestroy {
   private _unsubscribe = new Subject();
-  private _observer: ResizeObserver;
 
   @HostBinding('class.cz-slider__item') item = true;
 
