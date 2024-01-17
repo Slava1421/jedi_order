@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { SIDEBAR_TOKEN, SIDEBAR_CONTROLLER, SidebarThemes } from '../../models/cz-sidebar';
 import { CzSidebarControllerService } from '../../services/cz-sidebar-controller.service';
+import { globalTheme } from 'src/core/helpers/tools';
 
 @Component({
   selector: 'cz-sidebar',
@@ -9,7 +10,7 @@ import { CzSidebarControllerService } from '../../services/cz-sidebar-controller
   styleUrls: ['./cz-sidebar.component.scss'],
   host: {
     'class': 'sidebar ',
-    '[class.dark]': 'isDark',
+    // '[class.dark]': 'isDark',
   },
   encapsulation: ViewEncapsulation.None,
   providers: [{
@@ -26,6 +27,7 @@ export class CzSidebarComponent implements OnDestroy {
     return this._themeState === 'dark';
   }
 
+  setGlobalTheme = globalTheme();
 
   constructor(
     @Inject(SIDEBAR_CONTROLLER) private _sidebarController: CzSidebarControllerService
@@ -40,7 +42,10 @@ export class CzSidebarComponent implements OnDestroy {
   }
 
   onSwitchTheme(): void {
+
+
     this._themeState = this._themeState === 'dark' ? 'light' : 'dark';
+    this.setGlobalTheme(this._themeState);
     this._sidebarController.themeToggle(this._themeState as SidebarThemes);
   }
 

@@ -2,9 +2,11 @@
   <cz-icon class="icon" [icon]="!collapsed ? 'chevron-left' : 'chevron-right'"></cz-icon>
 </div>
 
-<div class="content" [class.opacity]="collapsed">
-  <div class="nav-head__avatar" >
+<div class="content">
+  <div class="nav-head__avatar">
     <img [src]="avatar" alt="">
   </div>
-  <ng-content></ng-content>
+  <div class="nav-head__content" [class.nav-head__content_collapsed]="collapsed">
+    <ng-content></ng-content>
+  </div>
 </div>

@@ -1,0 +1,30 @@
+$padding: 14px 16px !default;
+$min-height: 48px !default;
+$min-width: 344px !default;
+$max-width: 33vw !default;
+$spacing-margin: 24px !default;
+$spacing-margin-handset: 8px !default;
+
+.snackbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  pointer-events: none;
+  margin: 8px;
+
+  & .snackbar__surface {
+    background: var(--additional-color2);
+    color: var(--text-color);
+    border-radius: 4px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    pointer-events: auto;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    max-width: 672px;
+    min-width: 344px;
+  }
+}

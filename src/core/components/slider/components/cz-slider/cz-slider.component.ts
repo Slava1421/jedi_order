@@ -54,11 +54,9 @@ export class CzSliderComponent implements AfterViewInit, OnDestroy {
 
           if (val.type === 'transitionend') {
 
-            if (this.currentVisibleItemIndex > this.items.length) {
-              this.currentVisibleItemIndex = 1;
+            if (this.currentVisibleItemIndex === 1) {
               this.positionContainer = `${Math.round((-this.currentVisibleItemIndex) * this._sliderEl.clientHeight)}px`;
-            } else if (this.currentVisibleItemIndex < 1) {
-              this.currentVisibleItemIndex = this.items.length;
+            } else if (this.currentVisibleItemIndex === this.items.length) {
               this.positionContainer = `${Math.round((-this.currentVisibleItemIndex) * this._sliderEl.clientHeight)}px`;
             }
 
@@ -81,7 +79,14 @@ export class CzSliderComponent implements AfterViewInit, OnDestroy {
         } else if (deltaY < 0) {
           this.currentVisibleItemIndex--;
         }
+
         this.positionContainer = `${Math.round((-this.currentVisibleItemIndex) * this._sliderEl.clientHeight)}px`;
+        
+        if (this.currentVisibleItemIndex > this.items.length) {
+          this.currentVisibleItemIndex = 1;
+        } else if (this.currentVisibleItemIndex < 1) {
+          this.currentVisibleItemIndex = this.items.length;
+        }
 
       });
 

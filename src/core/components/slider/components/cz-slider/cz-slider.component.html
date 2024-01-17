@@ -1,9 +1,13 @@
 <div #itemContainer class="item-container" [class.item-container_animation]="isAnimated"
   [style.top]="!!positionContainer ? positionContainer : '0'">
-  <ng-container *ngFor="let item of displayItems;">
+
+  @for (item of displayItems; track item) {
     <ng-container [ngTemplateOutlet]="item.tpl">
     </ng-container>
-  </ng-container>
+  } @empty {
+    Empty list of users
+  }
+  
 </div>
 
 <div class="cz-slider-navigation">

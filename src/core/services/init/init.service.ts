@@ -25,17 +25,14 @@ export class InitService {
         {
           next: (resp: IAuthResponse) => {
             splashScreen?.remove();
-            this.router.navigate(['/main']);
           },
           error: (e) => {
-
             if (e instanceof HttpErrorResponse) {
               if (e.status !== 401) {
                 return;
               }
-              console.error(e);
               splashScreen?.remove();
-              this.router.navigate(['/auth']);
+              // this.router.navigate(['/auth']);
             }
           }
         }

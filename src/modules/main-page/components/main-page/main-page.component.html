@@ -4,14 +4,14 @@
       <!-- <cz-icon class="icon" icon="arrow-down-right-circle"></cz-icon> -->
       <span class="s2">Popenko</span>
     </nav-head>
-    <nav-item icon="search">
+    <nav-item icon="search" [routerLink]="urls.SliderTest" [activeItem]="isRouteActive(urls.SliderTest)">
       <div class="nav-item__wrapper">
-        Пошук
+        Тест слайдеру
       </div>
     </nav-item>
-    <nav-item icon="document">
+    <nav-item icon="document" >
       <div class="nav-item__wrapper">
-        Конспект
+        Тест алерт
       </div>
     </nav-item>
     <nav-item icon="help" [routerLink]="'/jjj'">
@@ -25,41 +25,12 @@
       <div class="footer__content">
 
         <button cz-button (click)="logout()"><cz-icon icon="logout"></cz-icon></button>
+        <button cz-button (click)="testt()">Test<cz-icon icon="plus"></cz-icon></button>
       </div>
     </nav-footer>
 
     <nav-content>
-      <cz-slider>
-        <cz-slider-item *czSliderItemDef>
-          <div class="sl-item sl-item1">
-          </div>
-        </cz-slider-item>
-        <cz-slider-item *czSliderItemDef >
-          <div class="sl-item sl-item2">
-            22
-          </div>
-        </cz-slider-item>
-        <cz-slider-item *czSliderItemDef >
-          <div class="sl-item sl-item3">
-            333
-          </div>
-        </cz-slider-item>
-        <cz-slider-item *czSliderItemDef >
-          <div class="sl-item sl-item4">
-            4444
-          </div>
-        </cz-slider-item>
-      </cz-slider>
-
-
-      <!-- <div style="height: 700px;">
-        <div>
-          <div class="sl-item sl-item1" style="height: inherit;"></div>
-          <div class="sl-item sl-item2" style="height: inherit;"></div>
-          <div class="sl-item sl-item3" style="height: inherit;"></div>
-          <div class="sl-item sl-item4" style="height: inherit;"></div>
-        </div>
-      </div> -->
+      <router-outlet></router-outlet>
     </nav-content>
   </cz-sidebar>
 
