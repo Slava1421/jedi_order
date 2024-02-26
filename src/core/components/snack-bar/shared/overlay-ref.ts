@@ -115,6 +115,7 @@ export class OverlayRef {
 
     } else {
       // створення екземпляру компоненту без viewContainerRef
+      // https://stackoverflow.com/questions/73786064/how-to-create-dynamic-components-using-service-without-componentfactoryresolver
       componentRef = createComponent(portal.component, {
         environmentInjector: portal.environmentInjector,
         elementInjector: portal.injector || Injector.NULL,

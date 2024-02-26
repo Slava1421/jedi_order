@@ -8,5 +8,9 @@ export const environment = {
   },
   user: {
     users: '/api/users'
+  },
+  massage: {
+    send: 'http://localhost:5001/new-messages',
+    connect:'http://localhost:5001/connect'
   }
 };

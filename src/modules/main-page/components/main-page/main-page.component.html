@@ -4,9 +4,14 @@
       <!-- <cz-icon class="icon" icon="arrow-down-right-circle"></cz-icon> -->
       <span class="s2">Popenko</span>
     </nav-head>
-    <nav-item icon="search" [routerLink]="urls.SliderTest" [activeItem]="isRouteActive(urls.SliderTest)">
+    <!-- <nav-item icon="search" [routerLink]="urls.SliderTest" [activeItem]="isRouteActive(urls.SliderTest)">
       <div class="nav-item__wrapper">
         Тест слайдеру
+      </div>
+    </nav-item> -->
+    <nav-item icon="settings" [routerLink]="urls.ParkingManager" [activeItem]="isRouteActive(urls.ParkingManager)">
+      <div class="nav-item__wrapper">
+        Налаштування парковки
       </div>
     </nav-item>
     <nav-item icon="document" >
@@ -25,7 +30,7 @@
       <div class="footer__content">
 
         <button cz-button (click)="logout()"><cz-icon icon="logout"></cz-icon></button>
-        <button cz-button (click)="testt()">Test<cz-icon icon="plus"></cz-icon></button>
+        <button cz-button (click)="testt1()">Test message<cz-icon icon="plus"></cz-icon></button>
       </div>
     </nav-footer>
 
