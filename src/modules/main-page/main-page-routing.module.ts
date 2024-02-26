@@ -15,6 +15,12 @@ const routes: Routes = [
         loadChildren: () => import('../slider-test/slider-test.module').then(m => m.SliderTestModule),
         canActivate: []
       },
+      {
+        title: 'Менеджер парковки',
+        path: 'parking-manager',
+        loadChildren: () => import('../parking-manager/parking-manager.module').then(m => m.ParkingManagerModule),
+        canActivate: []
+      },
     ]
   },
 ] 

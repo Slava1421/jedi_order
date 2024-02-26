@@ -1,0 +1,13 @@
+
+<div class="parking-constructor">
+  <div>
+    <button type="button"(click)="onStartDraw('rectangle')">Прямокутник</button>
+    <button type="button" (click)="onStartDraw('line')">Лінія</button>
+    <button type="button" (click)="onStartDraw('circle')">Коло</button>
+    <input type="number" value="1" (input)="test($event)">
+    <span>x:{{posCursorCanvas.x}}, y:{{posCursorCanvas.y}} </span>
+    <span>scale:{{posCursorCanvas.scale | json}} </span>
+    <div>rect:{{posCursorCanvas.rect | json}} </div>
+  </div>
+  <canvas #canvas class="parking-constructor__work-field"></canvas>
+</div>

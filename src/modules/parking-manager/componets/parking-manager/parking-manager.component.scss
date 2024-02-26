@@ -1,0 +1,10 @@
+.parking-constructor {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+
+  & .parking-constructor__work-field {
+    background: #dfdfdf;
+  }
+}

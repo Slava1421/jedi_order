@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, ViewContainerRef, } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, config } from 'rxjs';
+import { Subject, config, pipe } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { SIDEBAR_CONTROLLER } from '../../../../core/components/sidebar/models/cz-sidebar';
 import { CzSidebarControllerService } from '../../../../core/components/sidebar/services/cz-sidebar-controller.service';
@@ -9,9 +9,11 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
 import { CzSnackBarService } from '../../../../core/components/snack-bar/services/snack-bar.service';
 import { CzSnackBarConfig } from 'src/core/components/snack-bar/shared/snack-bar-config';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
+import { MessagesService } from 'src/core/services/messages/messages.service';
 
 enum MenuItemURLs {
-  SliderTest = '/main/slider'
+  SliderTest = '/main/slider',
+  ParkingManager = '/main/parking-manager'
 }
 
 @Component({
@@ -31,25 +33,37 @@ export class MainPageComponent implements OnDestroy {
     private _auth: AuthService,
     private _router: Router,
     private _snk: CzSnackBarService,
-    private a: ViewContainerRef,
+    private mes: MessagesService,
     @Inject(SIDEBAR_CONTROLLER) private _sidebarController: CzSidebarControllerService
   ) {
     this._checkIsLogin();
     this._checkSidebarCollapse();
+
+    // mes.messageListen()
+    //   .pipe(takeUntil(this.unsubscriber$))
+    //   .subscribe({
+    //     next: (mes: string) => {          
+    //       this.openShackbar(mes);
+    //     },
+    //     error: (e) => console.error(e)
+    //   });
   }
 
   isRouteActive(url: string, exact: boolean = false): boolean {
     return this._router.isActive(url, exact);
   }
 
-  testt(): void {
+  openShackbar(text: string): void {    
     const config = new CzSnackBarConfig();
     config.horizontalPosition = 'right';
-    config.data = { 'aaaa': 2323 };
-    config.duration = 3000;
-    // config.viewContainerRef= this.a;
-    const a = this._snk.openFromComponent(SnackBarMessageComponent, config);
-    
+    config.data = { text };
+    this._snk.openFromComponent(SnackBarMessageComponent, config);
+  }
+
+  testt1(): void {
+
+    this.mes.sendMessage('Hi, my name is Snakkkkkkk').subscribe();
+
   }
 
   logout(): void {

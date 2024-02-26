@@ -47,7 +47,6 @@ export class OverlayContainerComponent implements _SnackBarContainer, OnDestroy 
   }
   ngOnDestroy(): void {
     
-    console.log('destroyiiiiiiiiiiiiiii');
   }
 
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {

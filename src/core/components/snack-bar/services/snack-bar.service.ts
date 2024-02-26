@@ -6,12 +6,14 @@ import { OverlayConfig, OverlayPosition, OverlayRef } from '../shared/overlay-re
 import { DOCUMENT } from '@angular/common';
 import { OverlayContainerComponent } from '../components/overlay-container/overlay-container.component';
 import { ComponentPortal, TemplatePortal } from '../shared/portal';
+import { DefaultSnackBarComponent, TextOnlySnackBar } from '../components/default-snack-bar/default-snack-bar.component';
 
 let nextUniqueId = 0;
 
 @Injectable()
 export class CzSnackBarService implements OnDestroy{
   protected snackBarContainerComponent = OverlayContainerComponent;
+  protected defaultSimpleSnackBarComponent = DefaultSnackBarComponent;
   /**
      * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
      * If there is a parent snack-bar service, all operations should delegate to that parent
@@ -56,20 +58,20 @@ export class CzSnackBarService implements OnDestroy{
   }
 
 
-  // open(
-  //   message: string,
-  //   action: string = '',
-  //   config?: CzSnackBarConfig,
-  // ): CzSnackBarRef<TextOnlySnackBar> {
-  //   const _config = {...this._defaultConfig, ...config};
+  open(
+    message: string,
+    action: string = '',
+    config?: CzSnackBarConfig,
+  ): CzSnackBarRef<TextOnlySnackBar> {
+    const _config = {...this._defaultConfig, ...config};
 
-  //   _config.data = {message, action};
-  //   if (_config.announcementMessage === message) {
-  //     _config.announcementMessage = undefined;
-  //   }
+    _config.data = {message, action};
+    if (_config.announcementMessage === message) {
+      _config.announcementMessage = undefined;
+    }
 
-  //   return this.openFromComponent(this.simpleSnackBarComponent, _config);
-  // }
+    return this.openFromComponent(this.defaultSimpleSnackBarComponent, _config);
+  }
 
   private _attach<T>(
     content: ComponentType<T> | TemplateRef<T>,
