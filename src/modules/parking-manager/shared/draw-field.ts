@@ -1,36 +1,55 @@
 import { CircleParams, LineParams, Point, RectangleParams } from "../models/parking-manager.model";
 import { CanvasInstance } from "./canvas-instance";
 
+/**
+ * Клас описує поле малювання основної сцени на канвасі.
+ */
+
 export class DrawParkingField {
 
   private _figures: Figure[] = [];
-  public _canvas: CanvasInstance;
-  public _ctx: CanvasRenderingContext2D | null;
+  public canvas: CanvasInstance;
+  public ctx: CanvasRenderingContext2D | null;
+  // public scaleFactor: Point = { x: 1, y: 1 };
 
-  constructor(canvas: CanvasInstance) {
+  constructor(canvasInstance: CanvasInstance) {
 
-    if (!canvas) {
+    if (!canvasInstance) {
       throw new Error(`Isn't set canvas`);
     }
 
-    this._canvas = canvas;
-    this._ctx = canvas.context2D;
+    this.canvas = canvasInstance;
+    this.ctx = canvasInstance.context2D;
   }
 
+  /**
+   * Повертає массив фігур, об'єктів, які зараз є намальовані на канвасі.
+   * @returns {Figure[]} Массив фігур.
+   */
   getState(): Figure[] {
     return this._figures;
   }
 
+  /**
+   * Функція, яка малює одну фігуру в контексті канваса, який створений в конструкторі DrawParkingField.
+   * @param {Figure} figure - Об'єкт фігури.
+   */
   draw(figure: Figure): void {
-    if (!this._ctx) {
+    if (!this.ctx) {
       return;
     }
 
-    figure.draw(this._ctx);
+    figure.draw(this.ctx);
   }
 
+  /**
+   * Підсвітка фігури, якщо передані координати попадають в межі фігури
+   * яка зараз намальована на канвасі
+   * @param {Point} cursorPosition - координати.
+   * @returns {Figure | undefined} Фігура, в яку потрапили координати.
+   */
   highlightFigureOnHover(cursorPosition: Point): Figure | undefined {
-    if (!this._ctx) {
+    if (!this.ctx) {
       return undefined;
     }
 
@@ -47,24 +66,62 @@ export class DrawParkingField {
     return result;
   }
 
+  /**
+   * Функція масштабує зображення навколо певної точки (x, y) на canvas. 
+   * Функція також оновлює деякі параметри масштабування та позиції
+   * @param {Point} cursorPosition - координати.
+   */
+  scale(x: number, y: number, newScaleFactor: number): void {
+    // Здійснює зсув початку координат холста до точки (x, y).
+    this.ctx!.translate(x, y);
+    // Масштабує координатну систему холста на newScaleFactor в обидва боки (по x та y).
+    this.ctx!.scale(newScaleFactor, newScaleFactor);
+    // Повертає початок координат назад до початкового положення до масштабування.
+    this.ctx!.translate(-x, -y);
+  }
+
   saveFigure(figure: Figure): void {
     this._figures.push(figure);
     console.log(this._figures);
   }
 
+  /**
+   * Ця функція перемалювує всі фігури на canvas. 
+   * Функція видаляє попередні малюнки на холсті і замінює їх новими, які знаходяться у списку фігур
+   */
   redraw(): void {
+    // Очищує холст, видаляючи всі попередні малюнки або фігури
     this.clear();
     this._figures.forEach((item: Figure) => {
       this.draw(item);
     });
   }
 
+  /**
+  * Ця функція виконує очищення  canvas. 
+  * Функція видаляє попередні малюнки на canvas і замінює їх новими, які знаходяться у списку фігур
+  * Видаляються всі попередні малюнки або фігури з canvas, зберігаючи при цьому розміри canvas та 
+  * будь-які інші налаштування контексту малювання
+  */
   clear(): void {
-    const { w, h } = this._canvas.getSizes();
-    this._ctx?.save();
-    this._ctx?.setTransform(1,0,0,1,0,0);
-    this._ctx?.clearRect(0, 0, w, h);
-    this._ctx?.restore();
+    const { w, h } = this.canvas.getCanvasSize();
+    // Зберігає поточний стан контексту малювання холста (такі як колір, товщину ліній, трансформації, тощо),
+    // щоб можна було повернутися до нього пізніше
+    this.ctx?.save();
+    // Встановлює одиничну трансформацію, тобто скидає будь-які трансформації, що можуть бути застосовані до холста
+    this.ctx?.setTransform(1, 0, 0, 1, 0, 0);
+    // Очищує прямокутну область на холсті, починаючи з координат (0, 0) із шириною w та висотою h.
+    this.ctx?.clearRect(0, 0, w, h);
+    // Відновлює попередній стан контексту малювання холста, який був збережений раніше
+    this.ctx?.restore();
+
+
+    // У випадку функції clear() використання save() та restore() може бути зайвим, 
+    // оскільки ми очищаємо весь контекст малювання і не вносимо ніяких змін до його 
+    // стану після очищення. Тому в деяких випадках можна було б виключити використання 
+    // цих методів без втрати функціональності. Однак їх використання може бути залишено як
+    // стандартна практика для забезпечення чистоти коду та уникнення непередбачуваних станів 
+    // контексту малювання у більш складних сценаріях.
   }
 }
 
@@ -84,6 +141,10 @@ export abstract class Figure {
   abstract setParams(start: Point, end: Point): void;
   abstract isHoverCursor(cursorPosition: Point): boolean;
   abstract sizeVerification(): boolean;
+
+  protected visualizeShapeSelection(color: string): void {
+    this.bgColor = color;
+  }
 }
 
 export class Rectangle extends Figure {
@@ -110,7 +171,7 @@ export class Rectangle extends Figure {
     this.y = height < 0 ? start.y + height : start.y;
   }
 
-  override draw(ctx?: CanvasRenderingContext2D): void {    
+  override draw(ctx?: CanvasRenderingContext2D | null): void {
     if (!ctx && !this.ctx) {
       throw new Error('Draw error, provide context!');
     }
@@ -126,10 +187,10 @@ export class Rectangle extends Figure {
   override isHoverCursor(cursorPosition: Point): boolean {
     if (cursorPosition.x >= this.x && cursorPosition.x <= this.x + this.width &&
       cursorPosition.y >= this.y && cursorPosition.y <= this.y + this.height) {
-      this.bgColor = 'red';
+      this.visualizeShapeSelection('red');
       return true;
     }
-    this.bgColor = 'black';
+    this.visualizeShapeSelection('black');
     return false;
   }
 

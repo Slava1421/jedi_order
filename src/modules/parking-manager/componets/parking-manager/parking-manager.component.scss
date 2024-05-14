@@ -1,10 +1,25 @@
 .parking-constructor {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
+  // display: flex;
+  // flex-direction: column;
+  // padding: 24px;
+  overflow: hidden;
+  position: relative;
+
+  & .parking-constructor__toolbar {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: whitesmoke;
+  }
 
   & .parking-constructor__work-field {
-    background: #dfdfdf;
+
+    display: block;
+    height: inherit;
+
+    & canvas {
+      background: #dfdfdf;
+    }
   }
 }

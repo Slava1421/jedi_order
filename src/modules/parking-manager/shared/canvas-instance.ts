@@ -4,11 +4,11 @@ import { Renderer2 } from "@angular/core";
 
 const WIDTH = 600;
 const HEIGHT = 300;
-const PADDING = 40
-const DPI_WIDTH = WIDTH //* 2;
-const DPI_HEIGHT = HEIGHT //* 2;
-const VIEW_HEIGHT = DPI_HEIGHT;// - PADDING * 2
-const VIEW_WIDTH = DPI_WIDTH
+// const PADDING = 40
+const DPI_WIDTH = WIDTH * 2;
+const DPI_HEIGHT = HEIGHT * 2;
+// const VIEW_HEIGHT = DPI_HEIGHT;// - PADDING * 2
+// const VIEW_WIDTH = DPI_WIDTH
 
 export class CanvasInstance {
 
@@ -17,13 +17,20 @@ export class CanvasInstance {
   private _canvasMouseUp$: Observable<MouseEvent>;
   private _canvasMouseOut$: Observable<MouseEvent>;
   private _canvasMouseWheel$: Observable<WheelEvent>;
+  private _windowResize$: Observable<MouseEvent>;
   private _unsubscribe$ = new Subject();
   private _renderer: Renderer2;
 
+  private _size: { height: number, width: number } = { height: 0, width: 0 };
+
+  /** Canvas HTML element. */
   public canvas: HTMLCanvasElement;
+  /** 2D context . */
   public context2D: CanvasRenderingContext2D | null;
   public rect: DOMRect;
-  public scale: Point;
+
+  /**Ratio of HTML canvas dimensions to its context dimensions */
+  public sizeRatio: Point;
 
   public get canvasMouseDown$(): Observable<MouseEvent> {
     return this._canvasMouseDown$;
@@ -39,6 +46,10 @@ export class CanvasInstance {
 
   public get canvasMouseOut$(): Observable<MouseEvent> {
     return this._canvasMouseOut$;
+  }
+
+  public get windowResize$(): Observable<MouseEvent> {
+    return this._windowResize$;
   }
 
   public get canvasMouseWheel$(): Observable<WheelEvent> {
@@ -61,21 +72,45 @@ export class CanvasInstance {
     this._canvasMouseUp$ = fromEvent<MouseEvent>(this.canvas, 'mouseup').pipe(takeUntil(this._unsubscribe$));
     this._canvasMouseOut$ = fromEvent<MouseEvent>(this.canvas, 'mouseout').pipe(takeUntil(this._unsubscribe$));
     this._canvasMouseWheel$ = fromEvent<WheelEvent>(this.canvas, 'wheel').pipe(takeUntil(this._unsubscribe$));
+    this._windowResize$ = fromEvent<MouseEvent>(window, 'resize').pipe(takeUntil(this._unsubscribe$));
 
-    this.canvas.width = DPI_WIDTH;
-    this.canvas.height = DPI_HEIGHT
-    this._renderer.setStyle(this.canvas, 'width', `${WIDTH}px`);
-    this._renderer.setStyle(this.canvas, 'height', `${HEIGHT}px`);
+    this.setCanvasSize();
 
     this.context2D = this.canvas.getContext('2d');
-    this.rect = this.canvas.getBoundingClientRect();
-    this.scale = { x: this.canvas.width / this.rect.width, y: this.canvas.height / this.rect.height };
   }
 
-  getSizes(): { w: number, h: number } {
+  /**
+   * Sets HTML canvas sizes. Set the dimensions of the parent div for the canvas
+   */
+  setCanvasSize(): void {
+    this._size.width = this.canvas.width = this.canvas.parentElement?.clientWidth || 0;
+    this._size.height = this.canvas.height = this.canvas.parentElement?.clientHeight || 0;
+    this.rect = this.canvas.getBoundingClientRect();
+    this.sizeRatio = { x: this._size.width / this.rect.width, y: this._size.height / this.rect.height };
+  }
+
+  /**
+   * Returns the current HTML canvas size.
+   * @returns {DOMPoint} Weight and height.
+   */
+
+  getCanvasSize(): { w: number, h: number } {
     return {
       w: this.canvas.width, h: this.canvas.height
     }
+  }
+
+  /**
+   * Converts HTML canvas coordinates (such as cursor position) to coordinates
+   * matrix canvas (https://roblouie.com/article/617/transforming-mouse-coordinates-to-canvas-coordinates/).
+   * @param {number} x - coordinate х.
+   * @param {number} y - coordinate y.
+   * @returns {DOMPoint} Transformed coordinates.
+   */
+
+  getTransformedPoint(x: number, y: number): DOMPoint {
+    const originalPoint = new DOMPoint(x * this.sizeRatio.x, y * this.sizeRatio.y);
+    return this.context2D!.getTransform().invertSelf().transformPoint(originalPoint)
   }
 
   destroy(): void {
