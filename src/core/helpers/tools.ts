@@ -67,3 +67,7 @@ export function globalTheme(): (themeClassName: string) => void {
     }
   }
 }
+
+export function isNonEmptyObject(variable: any) {
+  return typeof variable === 'object' && variable !== null && Object.keys(variable).length > 0;
+}

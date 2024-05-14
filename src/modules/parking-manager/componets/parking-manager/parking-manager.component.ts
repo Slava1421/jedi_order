@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, E
 import { Circle, DrawParkingField, Figure, Line, Rectangle } from '../../shared/draw-field';
 import { CanvasInstance } from '../../shared/canvas-instance';
 import { Point } from '../../models/parking-manager.model';
-import { debounceTime, filter, map, pairwise, switchMap, takeUntil, tap } from 'rxjs';
+import { filter, map, switchMap, takeUntil, tap } from 'rxjs';
 import { ParkingManagerToolbar } from '../../shared/parking-manager-toolbar';
 
 @Component({
@@ -20,11 +20,47 @@ export class ParkingManagerComponent implements AfterViewInit, OnDestroy {
   private _canvasInstance: CanvasInstance;
   private _toolbar: ParkingManagerToolbar = new ParkingManagerToolbar();
 
-  posCursorCanvas = { x: 0, y: 0, scale: { x: 0, y: 0 }, rect: null };
+  posCursorCanvas = { x: 0, y: 0, scale: { x: 0, y: 0 }, w: 0, h: 0, rect: null };
 
   testLineWidth: number;
 
-  constructor(private _renderer: Renderer2, private _cd: ChangeDetectorRef) { }
+  constructor(
+    private _renderer: Renderer2,
+    private _cd: ChangeDetectorRef,
+  ) { }
+
+  ngAfterViewInit(): void {
+    this._canvas = (this.canvRef.nativeElement as HTMLCanvasElement);
+
+    this._canvasInstance = new CanvasInstance(this._canvas, this._renderer);
+    this._drawField = new DrawParkingField(this._canvasInstance);
+    /////////////////////////////////////////
+    this._canvasInstance.canvasMouseMove$.subscribe({
+      next: (e: MouseEvent) => {
+
+        const rect = this._canvasInstance.rect;
+        const scale: Point = this._canvasInstance.sizeRatio;
+
+        const originalPoint = new DOMPoint(e.offsetX * scale.x, e.offsetY * scale.y);
+        const s = this._canvasInstance.context2D!.getTransform().invertSelf().transformPoint(originalPoint)
+
+        this.posCursorCanvas = {
+          x: (e.clientX - rect.left) * scale.x,
+          y: (e.clientY - rect.top) * scale.y,
+          // x: this.getTransformedPoint(e.offsetX, e.offsetY).x ,
+          // y: this.getTransformedPoint(e.offsetX, e.offsetY).y ,
+          scale: { x: scale.x, y: scale.y },
+          w: this._canvas.width,
+          h: this._canvas.height,
+          rect: s as any
+        };
+        this._cd.detectChanges()
+      }
+    })
+    //////////////////////////////////////
+
+    this._listenMouseEvents();
+  }
 
   test(e: any): void {
     console.log(e.target.value);
@@ -51,77 +87,43 @@ export class ParkingManagerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit(): void {
-    this._canvas = (this.canvRef.nativeElement as HTMLCanvasElement);
-
-    this._canvasInstance = new CanvasInstance(this._canvas, this._renderer);
-    this._drawField = new DrawParkingField(this._canvasInstance);
-    /////////////////////////////////////////
-    this._canvasInstance.canvasMouseMove$.subscribe({
-      next: (e: MouseEvent) => {
-
-        const rect = this._canvasInstance.rect;
-        const scale: Point = this._canvasInstance.scale;
-
-        const originalPoint = new DOMPoint(e.offsetX, e.offsetY);
-        const s = this._canvasInstance.context2D!.getTransform().invertSelf().transformPoint(originalPoint)
-        this.posCursorCanvas = {
-          x: (e.clientX - rect.left) * scale.x,
-          y: (e.clientY - rect.top) * scale.y,
-          scale: { x: scale.x, y: scale.y },
-          rect: s as any
-        };
-        this._cd.detectChanges()
-      }
-    })
-    //////////////////////////////////////
-
-    this._listenMouseEvents();
-  }
-
   private _listenMouseEvents(): void {
-
-
-    this._mouseDownAndMove();
-    this._mouseClick();
-    this._mouseWheel();
+    this._drawFiguresEvent();
+    this._highlightFigureEvent();
+    this._scaleField();
+    this._windowResize();
   }
 
-  private _mouseDownAndMove(): void {
+  private _drawFiguresEvent(): void {
     this._canvasInstance.canvasMouseDown$
       .pipe(
-        filter(f => !!this._toolbar.drawingFigure),
+        filter(_ => !!this._toolbar.drawingFigure),
         map((e: MouseEvent) => {
-          const rect = this._canvasInstance.rect;
-          const scale: Point = this._canvasInstance.scale;
+          const { x, y } = this._canvasInstance.getTransformedPoint(e.offsetX, e.offsetY);
 
-          const figureInstance = this.getFigureInstance(this._toolbar.drawingFigure)
+          const figureInstance = this.getFigureInstance(this._toolbar.drawingFigure);
           figureInstance!.lineWidth = this.testLineWidth;
           return {
             figureInstance,
             start: {
-              // x: (e.clientX - rect.left) * scale.x,
-              // y: (e.clientY - rect.top) * scale.y
-              x: this.getTransformedPoint(e.offsetX, e.offsetY).x,
-              y: this.getTransformedPoint(e.offsetX, e.offsetY).y
+              x,
+              y
             },
-            options: { lineWidth: this.testLineWidth },
-            rect,
-            scale
           }
         }),
         switchMap((ev) => {
           return this._canvasInstance.canvasMouseMove$
             .pipe(
-              map((m => ({
-                ...ev,
-                end: {
-                  // x: (m.clientX - ev.rect.left) * ev.scale.x,
-                  // y: (m.clientY - ev.rect.top) * ev.scale.y
-                  x: this.getTransformedPoint(m.offsetX, m.offsetY).x,
-                  y: this.getTransformedPoint(m.offsetX, m.offsetY).y
+              map(m => {
+                const { x, y } = this._canvasInstance.getTransformedPoint(m.offsetX, m.offsetY);
+                return {
+                  ...ev,
+                  end: {
+                    x,
+                    y
+                  }
                 }
-              }))),
+              }),
               takeUntil(this._canvasInstance.canvasMouseUp$.pipe(
                 tap(_ => {
                   if (ev.figureInstance && ev.figureInstance.sizeVerification()) {
@@ -150,18 +152,12 @@ export class ParkingManagerComponent implements AfterViewInit, OnDestroy {
       });
   }
 
-  private _mouseClick(): void {
+  private _highlightFigureEvent(): void {
     this._canvasInstance.canvasMouseDown$
       .pipe(
         map((m => {
-          const rect = this._canvasInstance.rect;
-          const scale: Point = this._canvasInstance.scale;
-          const cursorPosition = {
-            // x: (m.clientX - rect.left) * scale.x,
-            // y: (m.clientY - rect.top) * scale.y
-            x: this.getTransformedPoint(m.offsetX, m.offsetY).x,
-            y: this.getTransformedPoint(m.offsetX, m.offsetY).y
-          };
+          const { x, y } = this._canvasInstance.getTransformedPoint(m.offsetX, m.offsetY);
+          const cursorPosition = { x, y };
           return cursorPosition
         }))
       )
@@ -173,50 +169,46 @@ export class ParkingManagerComponent implements AfterViewInit, OnDestroy {
       })
   }
 
-  private _mouseWheel(): void {
+  private _scaleField(): void {
     this._canvasInstance.canvasMouseWheel$
-      .pipe(
-      // map((m => {
-      //   const cursorPosition = {
-      //     x: (m.clientX - rect.left) * scale.x,
-      //     y: (m.clientY - rect.top) * scale.y
-      //   };
-      //   return !!this._drawField.highlightFigureOnHover(cursorPosition)
-      // })),
-      // pairwise(),
-    )
       .subscribe({
         next: (ev: WheelEvent) => {
-          const mousex = this.getTransformedPoint(ev.offsetX, ev.offsetY).x;
-          const mousey = this.getTransformedPoint(ev.offsetX, ev.offsetY).y;
-
-          // const mousex = Math.round(ev.clientX - this._canvasInstance.rect.left);
-          // const mousey = Math.round(ev.clientY - this._canvasInstance.rect.top);
-
-          // console.log('wheel', mousex, mousey);
-
-
-          const deltaY = ev.deltaY;
-
-          // Определение направления масштабирования (увеличение или уменьшение)
-          const direction = deltaY > 0 ? -1 : 1;
-
+          const { x: mousex, y: mousey } = this._canvasInstance.getTransformedPoint(ev.offsetX, ev.offsetY);
+          const direction = ev.deltaY > 0 ? -1 : 1;
           // Коэффициент масштабирования
           const scaleFactor = 1 + 0.1 * direction; // Например, увеличение/уменьшение на 10%
-
-          // Применение масштабирования к контексту холста
-          this._canvasInstance.context2D!.translate(mousex, mousey);
-          this._canvasInstance.context2D!.scale(scaleFactor, scaleFactor);
-          this._canvasInstance.context2D!.translate(-mousex, -mousey);
-
+          this._drawField.scale(mousex, mousey, scaleFactor);
           this._drawField.redraw();
+
+          this.ttt = this._canvasInstance.context2D?.getTransform();
         }
       })
   }
 
-  getTransformedPoint(x: number, y: number): DOMPoint {
-    const originalPoint = new DOMPoint(x, y);
-    return this._canvasInstance.context2D!.getTransform().invertSelf().transformPoint(originalPoint)
+  ttt: DOMMatrix | undefined;
+
+  private _windowResize(): void {
+    this._canvasInstance.windowResize$.subscribe({
+      next: (e: MouseEvent) => {
+        console.log('resizeaa');
+        
+        this._canvasInstance.setCanvasSize();
+
+        try {
+          this._canvasInstance.context2D?.setTransform(
+            this.ttt!.a,
+            this.ttt!.b,
+            this.ttt!.c,
+            this.ttt!.d,
+            this.ttt!.e,
+            this.ttt!.f
+          );
+        } catch (e) {
+          console.error(e);
+        }
+        this._drawField.redraw();
+      }
+    });
   }
 
   ngOnDestroy(): void {
