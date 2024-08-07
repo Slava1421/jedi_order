@@ -68,6 +68,14 @@ export function globalTheme(): (themeClassName: string) => void {
   }
 }
 
-export function isNonEmptyObject(variable: any) {
+export function isNonEmptyObject(variable: any): boolean {
   return typeof variable === 'object' && variable !== null && Object.keys(variable).length > 0;
+}
+
+export function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0,
+          v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+  });
 }
