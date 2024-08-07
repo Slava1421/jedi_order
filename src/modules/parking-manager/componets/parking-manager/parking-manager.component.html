@@ -3,11 +3,18 @@
     <button type="button" (click)="onStartDraw('rectangle')">Прямокутник</button>
     <button type="button" (click)="onStartDraw('line')">Лінія</button>
     <button type="button" (click)="onStartDraw('circle')">Коло</button>
-    <input type="number" value="1" (input)="test($event)">
-    <span>x:{{posCursorCanvas.x}}, y:{{posCursorCanvas.y}} </span>
-    <span>scale:{{posCursorCanvas.scale | json}} </span>
-    <div><span>width:{{posCursorCanvas.w}}, height:{{posCursorCanvas.h}} </span> </div>
-    <div>rect:{{posCursorCanvas.rect | json}} </div>
+
+    <input type="number" value="1" (input)="testLineWidth($event)">
+    <input type="color" (input)="testColor($event)">
+    <input #checkboxTest type="checkbox" (click)="testSnapToGrid(checkboxTest.checked)">
+    <span> Прив'язати до сітки</span>
+
+    <div>
+      <span>x:{{posCursorCanvas.x}}, y:{{posCursorCanvas.y}} </span>
+      <span>scale:{{posCursorCanvas.scale | json}} </span>
+      <div><span>width:{{posCursorCanvas.w}}, height:{{posCursorCanvas.h}} </span> </div>
+      <div>rect:{{posCursorCanvas.rect | json}} </div>
+    </div>
   </div>
   <div class="parking-constructor__work-field">
     <canvas #canvas></canvas>

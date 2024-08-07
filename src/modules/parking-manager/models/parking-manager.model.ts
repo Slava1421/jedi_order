@@ -9,14 +9,20 @@ export interface FigureParams {
 
   lineWidth: number;
 }
-export interface RectangleParams extends FigureParams{
+export interface RectangleParams extends FigureParams {
   height: number;
   width: number;
 }
-export interface LineParams extends FigureParams{
+export interface LineParams extends FigureParams {
   xEnd: number;
   yEnd: number;
 }
-export interface CircleParams extends FigureParams{
+export interface CircleParams extends FigureParams {
   radius: number;
+}
+
+export enum FiguresTypes {
+  Circle = 'circle',
+  Rectangle = 'rectangle',
+  Line = 'line',
 }

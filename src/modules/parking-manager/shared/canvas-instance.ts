@@ -16,7 +16,9 @@ export class CanvasInstance {
   private _canvasMouseMove$: Observable<MouseEvent>;
   private _canvasMouseUp$: Observable<MouseEvent>;
   private _canvasMouseOut$: Observable<MouseEvent>;
+  private _canvasMouseClick$: Observable<MouseEvent>;
   private _canvasMouseWheel$: Observable<WheelEvent>;
+  private _canvasParentElementResize$: Observable<MouseEvent> | null;
   private _windowResize$: Observable<MouseEvent>;
   private _unsubscribe$ = new Subject();
   private _renderer: Renderer2;
@@ -32,6 +34,10 @@ export class CanvasInstance {
   /**Ratio of HTML canvas dimensions to its context dimensions */
   public sizeRatio: Point;
 
+  public get parentElement(): HTMLElement | null {
+    return this.canvas.parentElement;
+  }
+
   public get canvasMouseDown$(): Observable<MouseEvent> {
     return this._canvasMouseDown$;
   }
@@ -46,6 +52,14 @@ export class CanvasInstance {
 
   public get canvasMouseOut$(): Observable<MouseEvent> {
     return this._canvasMouseOut$;
+  }
+
+  public get canvasMouseClick$(): Observable<MouseEvent> {
+    return this._canvasMouseClick$;
+  }
+
+  public get canvasParentElementResize$(): Observable<MouseEvent> | null {
+    return this._canvasParentElementResize$;
   }
 
   public get windowResize$(): Observable<MouseEvent> {
@@ -71,7 +85,11 @@ export class CanvasInstance {
     this._canvasMouseMove$ = fromEvent<MouseEvent>(this.canvas, 'mousemove').pipe(takeUntil(this._unsubscribe$));
     this._canvasMouseUp$ = fromEvent<MouseEvent>(this.canvas, 'mouseup').pipe(takeUntil(this._unsubscribe$));
     this._canvasMouseOut$ = fromEvent<MouseEvent>(this.canvas, 'mouseout').pipe(takeUntil(this._unsubscribe$));
+    this._canvasMouseClick$ = fromEvent<MouseEvent>(this.canvas, 'click').pipe(takeUntil(this._unsubscribe$));
     this._canvasMouseWheel$ = fromEvent<WheelEvent>(this.canvas, 'wheel').pipe(takeUntil(this._unsubscribe$));
+    this._canvasParentElementResize$ =
+      this.parentElement !== null ?
+        fromEvent<MouseEvent>(this.parentElement, 'resize').pipe(takeUntil(this._unsubscribe$)) : null;
     this._windowResize$ = fromEvent<MouseEvent>(window, 'resize').pipe(takeUntil(this._unsubscribe$));
 
     this.setCanvasSize();
@@ -83,8 +101,8 @@ export class CanvasInstance {
    * Sets HTML canvas sizes. Set the dimensions of the parent div for the canvas
    */
   setCanvasSize(): void {
-    this._size.width = this.canvas.width = this.canvas.parentElement?.clientWidth || 0;
-    this._size.height = this.canvas.height = this.canvas.parentElement?.clientHeight || 0;
+    this._size.width = this.canvas.width = this.parentElement?.clientWidth || 0;
+    this._size.height = this.canvas.height = this.parentElement?.clientHeight || 0;
     this.rect = this.canvas.getBoundingClientRect();
     this.sizeRatio = { x: this._size.width / this.rect.width, y: this._size.height / this.rect.height };
   }
@@ -94,7 +112,7 @@ export class CanvasInstance {
    * @returns {DOMPoint} Weight and height.
    */
 
-  getCanvasSize(): { w: number, h: number } {
+  getCanvasSize(): { w: number, h: number } {    
     return {
       w: this.canvas.width, h: this.canvas.height
     }
